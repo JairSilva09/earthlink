@@ -1,39 +1,54 @@
 
-type CarriersList = {
+export type CarriersList = {
 }
 
-type InternetPlansList = {
+export type InfoBilling = {
+    addressLine1: string,
+    addressLine2: string,
+    attentionInCareOf: string,
+    city: string,
+    state: string,
+    zipCode:  string,    
+}
+
+export type InternetPlansList = {
 
 }
 
-type Message = {
+export type Message = {
     messageDescription: string;
     messageType: string;
     Status: string;
     Title: string;
 }
 
-type PotentialDates = {
+export type PotentialDates = {
     
 }
 
-type ProductInternet = {}
-type ProductVoice = {}
+export type ProductInternet = {
+    PlanName: string;
+    recurringAmount: string;
+}
+export type ProductVoice = {}
+export type SelectedIsgRewards = {
+    value: number;
+}
 
-type VoicePlansList = {
+export type VoicePlansList = {
 
 }
 
-type Products = {
+export type Products = {
     internetPlans: InternetPlansList[];
     voicePlans: VoicePlansList[];
 }
 
-type SecurityQuestionsList = {
+export type SecurityQuestionsList = {
 
 }
 
-type ShowingCart = {
+export type ShowingCart = {
     productInternet: ProductInternet;
     productVoice: ProductVoice;    
 }

@@ -1,3 +1,4 @@
+import { CarriersList, InfoBilling, PotentialDates, ProductInternet, ProductVoice, Products, SecurityQuestionsList, SelectedIsgRewards, ShowingCart } from "./models";
 
 export interface ORDERDATA {
     isDevMode: boolean;
@@ -31,7 +32,7 @@ export interface ORDERDATA {
     email: string;
     ifMatch: string;
     isgGiftCard: string;
-    isgGiftCardResponse: boolean,
+    isgGiftCardResponse: boolean;
     firstName: string;
     lastName: string;
     market: string;
@@ -58,9 +59,11 @@ export interface ORDERDATA {
     portCarrierName: string;
     potentialDates: PotentialDates[];
     productType: string | null;
-    products: Products[];
+    products: Products;
     secondaryPhone: string;
-    selectedIsgRewards: string;
+    selectedIsgRewards: {
+      value: number;
+    };
     serviceCity: string;
     serviceState: string;
     serviceZip: string;
@@ -73,7 +76,13 @@ export interface ORDERDATA {
       answer: string,
      };
     securityQuestionsList: SecurityQuestionsList[];
-    showingCart: ShowingCart;
+    showingCart: {
+      productInternet: {
+        PlanName: string;
+        recurringAmount: string;
+      };
+      productVoice: ProductVoice;
+    };
   }
 
 export const orderData: ORDERDATA = {
@@ -135,10 +144,15 @@ export const orderData: ORDERDATA = {
     portAccount: "",
     portCarrierName: "",
     potentialDates:[],
-    products: [],
+    products: {
+      internetPlans: [],
+      voicePlans: [],
+    },
     productType: null,
     salesConsumer: "",
-    selectedIsgRewards: "",
+    selectedIsgRewards: {
+      value: 0,
+    },
     secondaryPhone: "",
     serviceCity: "",
     serviceState: "",
@@ -152,7 +166,10 @@ export const orderData: ORDERDATA = {
     },
     securityQuestionsList: [],
     showingCart: {
-      productInternet:{},
+      productInternet:{
+        PlanName: "",
+        recurringAmount: "",
+      },
       productVoice:{}    
     }
 };
