@@ -1,5 +1,5 @@
-import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
-import { Router,NavigationEnd } from '@angular/router';
+import { Component, ElementRef, ViewChild, HostListener, ChangeDetectorRef } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { EarlinkService } from '../service/earlink.service';
 import { ORDERDATA } from '../models/data.model';
 
@@ -9,19 +9,17 @@ import { ORDERDATA } from '../models/data.model';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-  selectedMenuItem: string = '';
-  fidiumCoreData!: ORDERDATA;
   @ViewChild('logosContainer') logosContainer!: ElementRef;
   @ViewChild('menuContainer') menuContainer!: ElementRef;
+
+  selectedMenuItem: string = '';
+  fidiumCoreData!: ORDERDATA;
   showTagClosingOffers: boolean = false;
+  isMenuFixed = false;
 
-  constructor(private router: Router,private earlinkService: EarlinkService) {
-
-    this.selectedMenuItem = '';
-  }
+  constructor(private router: Router, private earlinkService: EarlinkService, private cdRef: ChangeDetectorRef) {}
 
   ngOnInit() {
-
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.selectedMenuItem = event.url;
@@ -30,22 +28,26 @@ export class MenuComponent {
 
     this.earlinkService.currentCartForm$.subscribe((data) => {
       this.fidiumCoreData = data;
-      this.showTagClosingOffers =  this.fidiumCoreData.isgGiftCardResponse?true:false;
-    })
-
-    window.addEventListener('scroll', this.handleScroll.bind(this));
+      this.showTagClosingOffers = this.fidiumCoreData.isgGiftCardResponse ? true : false;
+    });
   }
 
   selectMenuItem(item: string): void {
     this.selectedMenuItem = item;
   }
 
-  handleScroll() {
+  @HostListener('window:scroll', ['$event'])
+  checkMenuPosition() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     const logosHeight = this.logosContainer.nativeElement.offsetHeight;
-    const menuContainerHeight = this.menuContainer.nativeElement.offsetHeight;
-    this.isMenuFixed = scrollTop > logosHeight - menuContainerHeight;
-  }
+    const menuContainerTop = this.menuContainer.nativeElement.offsetTop;
 
-  isMenuFixed = false;
+    if (scrollTop > (menuContainerTop + logosHeight)) {
+      this.isMenuFixed = true;
+    } else {
+      this.isMenuFixed = false;
+    }
+
+    this.cdRef.detectChanges();
+  }
 }

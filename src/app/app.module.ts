@@ -12,13 +12,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { ProductsComponent } from './products/products.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddressComponent,
     SideCartComponent,
-    MenuComponent
+    MenuComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,
