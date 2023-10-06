@@ -7,7 +7,7 @@
       <option value="ascending speed">Lower Speed</option>
     </select>
     <div class="card-repeater">
-        <!-- <app-products-card *ngFor="let product of productList; let i = index" [product]="product" (idProductEmitter)="idProductSelected(i)"></app-products-card> -->
+        <app-products-card *ngFor="let product of productList; let i = index" [product]="product" (idProductEmitter)="idProductSelected(i)"></app-products-card>
     </div>
     <div class="card-button">
         <div style="padding-right: 2px;">

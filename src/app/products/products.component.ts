@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EarlinkService } from '../service/earlink.service';
 import { ActivationEnd, Router } from '@angular/router';
 import { ORDERDATA } from '../models/data.model';
+import { PRODUCTS_EARTHLINK } from '../mock-data';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class ProductsComponent implements OnInit {
     this.earthlinkService.currentCartForm$.subscribe((data) => {
 
       this.earthlinkCoreData = data;
-      //this.productList = data.productsFidium
+      this.productList = PRODUCTS_EARTHLINK.response.internetPlansList
 
       if (this.currentPage === 'products') {
         this.currentPage = '';

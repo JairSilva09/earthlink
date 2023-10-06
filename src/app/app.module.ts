@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { ProductsComponent } from './products/products.component';
+import { ProductsCardComponent } from './products-card/products-card.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ProductsComponent } from './products/products.component';
     AddressComponent,
     SideCartComponent,
     MenuComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductsCardComponent
   ],
   imports: [
     BrowserModule,
