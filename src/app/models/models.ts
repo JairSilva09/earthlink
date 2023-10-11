@@ -1,5 +1,6 @@
 
 export type CarriersList = {
+    name : string;
 }
 
 export type InfoBilling = {
@@ -30,7 +31,9 @@ export type ProductInternet = {
     PlanName: string;
     recurringAmount: string;
 }
-export type ProductVoice = {}
+export type ProductVoice = {
+    planName: string;
+}
 export type SelectedIsgRewards = {
     value: number;
 }
@@ -45,7 +48,8 @@ export type Products = {
 }
 
 export type SecurityQuestionsList = {
-
+    id: string;
+    question: string;
 }
 
 export type ShowingCart = {

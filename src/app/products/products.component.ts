@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EarlinkService } from '../service/earlink.service';
+import { EarthlinkService } from '../service/earthlink.service';
 import { ActivationEnd, Router } from '@angular/router';
 import { ORDERDATA } from '../models/data.model';
 import { PRODUCTS_EARTHLINK } from '../mock-data';
@@ -25,7 +25,7 @@ export class ProductsComponent implements OnInit {
   answerWithError: boolean = false;
   //-------------------------//
 
-  constructor(private earthlinkService: EarlinkService, private router: Router) { }
+  constructor(private earthlinkService: EarthlinkService, private router: Router) { }
 
   ngOnInit(): void {
     this.earthlinkService.getLocalStorage()
@@ -161,7 +161,15 @@ export class ProductsComponent implements OnInit {
   }
 
   submit() {
-    this.carrierList();
+    //this.carrierList();
+     //HARD CODE
+     this.loaderOn = true;
+     this.loaderTitle = 'Getting Products'
+     setTimeout(() => {      
+     this.loaderOn = false;
+     this.router.navigate(['billing']);
+     }, 3000);
+     ///// END HARD CODE /////////
   }
 
 }

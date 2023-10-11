@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, HostListener, ChangeDetectorRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { EarlinkService } from '../service/earlink.service';
+import { EarthlinkService } from '../service/earthlink.service';
 import { ORDERDATA } from '../models/data.model';
 
 @Component({
@@ -13,11 +13,11 @@ export class MenuComponent {
   @ViewChild('menuContainer') menuContainer!: ElementRef;
 
   selectedMenuItem: string = '';
-  fidiumCoreData!: ORDERDATA;
+  earthlinkCoreData!: ORDERDATA;
   showTagClosingOffers: boolean = false;
   isMenuFixed = false;
 
-  constructor(private router: Router, private earlinkService: EarlinkService, private cdRef: ChangeDetectorRef) {}
+  constructor(private router: Router, private EarthlinkService: EarthlinkService, private cdRef: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.router.events.subscribe((event) => {
@@ -26,9 +26,9 @@ export class MenuComponent {
       }
     });
 
-    this.earlinkService.currentCartForm$.subscribe((data) => {
-      this.fidiumCoreData = data;
-      this.showTagClosingOffers = this.fidiumCoreData.isgGiftCardResponse ? true : false;
+    this.EarthlinkService.currentCartForm$.subscribe((data) => {
+      this.earthlinkCoreData = data;
+      this.showTagClosingOffers = this.earthlinkCoreData.isgGiftCardResponse ? true : false;
     });
   }
 

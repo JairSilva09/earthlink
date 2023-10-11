@@ -115,33 +115,33 @@ export function validateEmpty(field: string): boolean {
     onInstallationEmailBlur(){
       this.isInstallationEmailTouched = true
     },
-    areAllConditionsValid(fidiumCoreData: any): boolean {
+    areAllConditionsValid(earthlinkCoreData: any): boolean {
       return (
-        fidiumCoreData.infoBilling.city != '' &&
-        fidiumCoreData.infoBilling.addressLine1 != '' &&
-        fidiumCoreData.infoBilling.state != '' &&
-        fidiumCoreData.infoBilling.zipCode != '' &&
-        fidiumCoreData.additinalBillingInfo.isWirelessCarrier != '' &&
-        fidiumCoreData.additinalBillingInfo.wirelessAccountPIN != '' &&
-        fidiumCoreData.additinalBillingInfo.nameAsAppearsOnBill != '' &&
-        fidiumCoreData.additinalBillingInfo.addressForWirelessCarrier != '' &&
-        fidiumCoreData.additinalBillingInfo.isBillAddSameAsSvcAdd != '' &&
-        fidiumCoreData.infoContact.firstName != '' &&
-        fidiumCoreData.infoContact.lastName != '' &&
-        fidiumCoreData.infoContact.phoneNumber != '' &&
-        fidiumCoreData.infoContact.phoneType != '' &&
-        fidiumCoreData.infoContact.emailAddress != '' &&
-        filterEmail(fidiumCoreData.infoContact.emailAddress) &&
-        fidiumCoreData.installationContact.firstName != '' &&
-        fidiumCoreData.installationContact.lastName != '' &&
-        fidiumCoreData.installationContact.phoneNumber != '' &&
-        fidiumCoreData.installationContact.phoneType != '' &&
-        fidiumCoreData.installationContact.emailAddress != '' &&
-        fidiumCoreData.portAccount != '' &&
-        fidiumCoreData.portPhoneNumber != '' &&
-        fidiumCoreData.portAccount != '' &&
-        fidiumCoreData.safeGuardDetails.cpniPIN != '' &&
-        filterEmail(fidiumCoreData.installationContact.emailAddress)
+        earthlinkCoreData.infoBilling.city != '' &&
+        earthlinkCoreData.infoBilling.addressLine1 != '' &&
+        earthlinkCoreData.infoBilling.state != '' &&
+        earthlinkCoreData.infoBilling.zipCode != '' &&
+        earthlinkCoreData.additinalBillingInfo.isWirelessCarrier != '' &&
+        earthlinkCoreData.additinalBillingInfo.wirelessAccountPIN != '' &&
+        earthlinkCoreData.additinalBillingInfo.nameAsAppearsOnBill != '' &&
+        earthlinkCoreData.additinalBillingInfo.addressForWirelessCarrier != '' &&
+        earthlinkCoreData.additinalBillingInfo.isBillAddSameAsSvcAdd != '' &&
+        earthlinkCoreData.infoContact.firstName != '' &&
+        earthlinkCoreData.infoContact.lastName != '' &&
+        earthlinkCoreData.infoContact.phoneNumber != '' &&
+        earthlinkCoreData.infoContact.phoneType != '' &&
+        earthlinkCoreData.infoContact.emailAddress != '' &&
+        filterEmail(earthlinkCoreData.infoContact.emailAddress) &&
+        earthlinkCoreData.installationContact.firstName != '' &&
+        earthlinkCoreData.installationContact.lastName != '' &&
+        earthlinkCoreData.installationContact.phoneNumber != '' &&
+        earthlinkCoreData.installationContact.phoneType != '' &&
+        earthlinkCoreData.installationContact.emailAddress != '' &&
+        earthlinkCoreData.portAccount != '' &&
+        earthlinkCoreData.portPhoneNumber != '' &&
+        earthlinkCoreData.portAccount != '' &&
+        earthlinkCoreData.safeGuardDetails.cpniPIN != '' &&
+        filterEmail(earthlinkCoreData.installationContact.emailAddress)
       );
     },
   

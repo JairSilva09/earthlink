@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild,isDevMode } from '@angular/core';
-import { EarlinkService } from '../service/earlink.service';
+import { EarthlinkService } from '../service/earthlink.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { validateEmpty, validatePhone, validateEmail } from '../service/validati
 })
 export class AddressComponent implements OnInit {
 
-  EarlinkCoreData: ORDERDATA = orderData;
+  earthlinkCoreData: ORDERDATA = orderData;
   loadingData: boolean = false;
   loaderTitle: string = '';
   loaderOn = false;
@@ -85,14 +85,14 @@ export class AddressComponent implements OnInit {
   uuid: string = "";
 
 
-  constructor(private EarlinkService: EarlinkService, private activatedRoute: ActivatedRoute, private router: Router) {}
+  constructor(private EarthlinkService: EarthlinkService, private activatedRoute: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.options = {
       componentRestrictions: { country: 'US' },
     };
-    this.EarlinkService.currentCartForm$.subscribe((data: ORDERDATA) => {
-      this.EarlinkCoreData = data;
+    this.EarthlinkService.currentCartForm$.subscribe((data: ORDERDATA) => {
+      this.earthlinkCoreData = data;
       this.allowedSuffix = this.filterEmail(data.email);
       this.messageEmail = this.allowedSuffix ? '' : 'Email not allowed';
       // SAMPLE URL http://localhost:4200/address?firstName=Cesar&lastName=Vega&addressLine1=109 W Jackson&address2=&city=Augusta&state=GA&zip=30904&agentId=13457&callkey=&dnis=&ani=&email=cvega@gmail.com&phone=3053220070
@@ -102,42 +102,42 @@ export class AddressComponent implements OnInit {
     this.currentCustomer = "false";
     this.emailDrip = false;
 
-    if (this.EarlinkCoreData.transactionId === "") {
+    if (this.earthlinkCoreData.transactionId === "") {
       this.activatedRoute.queryParams.subscribe((params: any) => {
-        this.EarlinkCoreData.firstName = this.firstName = params['firstName']? params['firstName']: this.firstName;
-        this.EarlinkCoreData.lastName = this.lastName = params['lastName']? params['lastName']: this.lastName;
-        this.EarlinkCoreData.email = this.email = params['email'] ? params['email'] : this.email;
-        this.EarlinkCoreData.phone = this.phone = params['phone'] ? params['phone'] : this.phone;
-        this.EarlinkCoreData.secondaryPhone = this.secondaryPhone = params['secondaryPhone'] ? params['secondaryPhone'] : this.secondaryPhone;
-        this.EarlinkCoreData.addressLine1 = this.addressLine1 = params['addressLine1'] ? params['addressLine1'] : this.addressLine1;
-        this.EarlinkCoreData.addressLine2 = this.serviceApt = params['address2']? params['address2']: this.serviceApt;
-        this.EarlinkCoreData.serviceCity = this.serviceCity = params['city'] ? params['city'] : this.serviceCity;
+        this.earthlinkCoreData.firstName = this.firstName = params['firstName']? params['firstName']: this.firstName;
+        this.earthlinkCoreData.lastName = this.lastName = params['lastName']? params['lastName']: this.lastName;
+        this.earthlinkCoreData.email = this.email = params['email'] ? params['email'] : this.email;
+        this.earthlinkCoreData.phone = this.phone = params['phone'] ? params['phone'] : this.phone;
+        this.earthlinkCoreData.secondaryPhone = this.secondaryPhone = params['secondaryPhone'] ? params['secondaryPhone'] : this.secondaryPhone;
+        this.earthlinkCoreData.addressLine1 = this.addressLine1 = params['addressLine1'] ? params['addressLine1'] : this.addressLine1;
+        this.earthlinkCoreData.addressLine2 = this.serviceApt = params['address2']? params['address2']: this.serviceApt;
+        this.earthlinkCoreData.serviceCity = this.serviceCity = params['city'] ? params['city'] : this.serviceCity;
         this.serviceSuffix = params['suffix']? params['suffix']: this.serviceSuffix;
-        this.EarlinkCoreData.serviceState = this.serviceState = params['state'] ? params['state'] : this.serviceState;
-        this.EarlinkCoreData.serviceZip = this.serviceZip = params['zip'] ? params['zip'] : this.serviceZip;
+        this.earthlinkCoreData.serviceState = this.serviceState = params['state'] ? params['state'] : this.serviceState;
+        this.earthlinkCoreData.serviceZip = this.serviceZip = params['zip'] ? params['zip'] : this.serviceZip;
         this.selectedOptions = this.selectedOptions ? this.selectedOptions : {}
-        this.EarlinkCoreData.dnis = this.dnis = params['dnis'] ? params['dnis'] : this.dnis;
-        this.EarlinkCoreData.agentId = this.agentId = params['agentId'] ? params['agentId'] : this.agentId;
+        this.earthlinkCoreData.dnis = this.dnis = params['dnis'] ? params['dnis'] : this.dnis;
+        this.earthlinkCoreData.agentId = this.agentId = params['agentId'] ? params['agentId'] : this.agentId;
         this.callkey = params['callkey']? params['callkey']: this.callkey;
       });
 
       let transactionPayload = {
-        "agent_id": this.EarlinkCoreData.agentId,
-        "agentId": this.EarlinkCoreData.agentId,
+        "agent_id": this.earthlinkCoreData.agentId,
+        "agentId": this.earthlinkCoreData.agentId,
         "partner": "fidium",
         "params": {
           "gc": 1,
-          "dnis": this.EarlinkCoreData.dnis,
+          "dnis": this.earthlinkCoreData.dnis,
           "callKey": this.callkey
         }
       }
       this.loadingData = false;
       this.loaderTitle = 'Creating Transaction'
-      this.EarlinkService.createAWSTransaction(transactionPayload).subscribe({
+      this.EarthlinkService.createAWSTransaction(transactionPayload).subscribe({
         next: (data: any) => {
           let transactionId = data.uuid;
-          this.EarlinkCoreData.transactionId = transactionId;
-          this.EarlinkService.setTransactionIdHeaders(transactionId);
+          this.earthlinkCoreData.transactionId = transactionId;
+          this.EarthlinkService.setTransactionIdHeaders(transactionId);
           this.loadingData = false;
         },
         error: (error: any) => {
@@ -151,7 +151,7 @@ export class AddressComponent implements OnInit {
         }
       });
     } else {
-      this.EarlinkCoreData.transactionId = this.EarlinkCoreData.transactionId;
+      this.earthlinkCoreData.transactionId = this.earthlinkCoreData.transactionId;
     }
     // get Token
     let userAndPwd = {
@@ -163,24 +163,24 @@ export class AddressComponent implements OnInit {
     //     if (response && response.token) {
     //       localStorage.setItem('token', response.token);
     //       localStorage.setItem('refresh_token', response.refresh_token);
-    //       this.EarlinkService.setCartForm(this.EarlinkCoreData);
+    //       this.EarthlinkService.setCartForm(this.earthlinkCoreData);
     //       let marketingInfoPayload = {
-    //         "dnis": this.EarlinkCoreData.dnis,
+    //         "dnis": this.earthlinkCoreData.dnis,
     //         "provider": "Viasat",
     //         "return_full_json": "1"
     //       }
     //       this.loadingData = false;
     //       this.loaderTitle = 'Get Marketing Info'
-    //       this.EarlinkService.marketingInfoSaleCode(marketingInfoPayload).subscribe({
+    //       this.EarthlinkService.marketingInfoSaleCode(marketingInfoPayload).subscribe({
     //         next: (salescode: any) => {
-    //           this.EarlinkCoreData.isgGiftCard = JSON.parse(salescode.data.salecode).hasOwnProperty('gc') ? JSON.parse(salescode.data.salecode).gc : '0';
+    //           this.earthlinkCoreData.isgGiftCard = JSON.parse(salescode.data.salecode).hasOwnProperty('gc') ? JSON.parse(salescode.data.salecode).gc : '0';
     //           if (salescode) {
-    //             if (this.EarlinkCoreData.isgGiftCard != "0") {
+    //             if (this.earthlinkCoreData.isgGiftCard != "0") {
     //               this.giftCardApplied = true;
-    //               this.EarlinkCoreData.isgGiftCardResponse = true;
+    //               this.earthlinkCoreData.isgGiftCardResponse = true;
     //             }else{
     //               this.giftCardApplied = false;
-    //               this.EarlinkCoreData.isgGiftCardResponse = false;
+    //               this.earthlinkCoreData.isgGiftCardResponse = false;
     //             }
     //           }
     //         },
@@ -273,22 +273,29 @@ export class AddressComponent implements OnInit {
     this.isZipTouched = true
   }
   submitData() {
-
-    this.loaderTitle = 'Getting Products'
+    //HARD CODE
     this.loaderOn = true;
-    this.EarlinkCoreData.firstName = this.firstName;
-    this.EarlinkCoreData.lastName = this.lastName;
-    this.EarlinkCoreData.email = this.email;
-    this.EarlinkCoreData.phone = this.phone;
-    this.EarlinkCoreData.secondaryPhone = this.secondaryPhone;
-    this.EarlinkCoreData.addressLine1 = this.addressLine1;
-    this.EarlinkCoreData.addressLine2 = this.serviceApt;
-    this.EarlinkCoreData.serviceCity = this.serviceCity;
-    this.EarlinkCoreData.serviceState = this.serviceState;
-    this.EarlinkCoreData.serviceZip = this.serviceZip;
-    this.EarlinkCoreData.dnis = this.dnis;
+    this.loaderTitle = 'Getting Products'
+    setTimeout(() => {      
+    this.loaderOn = false;
+    this.router.navigate(['products']);
+    }, 3000);
+    ///// END HARD CODE /////////
+    // this.loaderTitle = 'Getting Products'
+    // this.loaderOn = true;
+    this.earthlinkCoreData.firstName = this.firstName;
+    this.earthlinkCoreData.lastName = this.lastName;
+    this.earthlinkCoreData.email = this.email;
+    this.earthlinkCoreData.phone = this.phone;
+    this.earthlinkCoreData.secondaryPhone = this.secondaryPhone;
+    this.earthlinkCoreData.addressLine1 = this.addressLine1;
+    this.earthlinkCoreData.addressLine2 = this.serviceApt;
+    this.earthlinkCoreData.serviceCity = this.serviceCity;
+    this.earthlinkCoreData.serviceState = this.serviceState;
+    this.earthlinkCoreData.serviceZip = this.serviceZip;
+    this.earthlinkCoreData.dnis = this.dnis;
 
-    this.getProducts();
+    //this.getProducts();
   }
 
   closeModal() {
@@ -304,24 +311,24 @@ export class AddressComponent implements OnInit {
       this.loaderOn = false;
     }else{
       let object = {
-        "agentName": this.EarlinkCoreData.agentId,
-        "caseId": this.EarlinkCoreData.caseId,
-        "ifMatch": this.EarlinkCoreData.ifMatch,
-        "controlNumber": this.EarlinkCoreData.controlNumber,
-        "market": this.EarlinkCoreData.market,
-        "productType": this.EarlinkCoreData.productType // 'INTERNET', 'VOICE' or null
+        "agentName": this.earthlinkCoreData.agentId,
+        "caseId": this.earthlinkCoreData.caseId,
+        "ifMatch": this.earthlinkCoreData.ifMatch,
+        "controlNumber": this.earthlinkCoreData.controlNumber,
+        "market": this.earthlinkCoreData.market,
+        "productType": this.earthlinkCoreData.productType // 'INTERNET', 'VOICE' or null
       }
-      this.EarlinkService.getCheckEligibility(object).subscribe({
+      this.EarthlinkService.getCheckEligibility(object).subscribe({
         next: (data: any) => {
           this.loaderOn = false;
           if (data.messages.length && data.messages[0].messageDescription != "The API returned Success Message") {
             this.ErrorMessage = data.messages[0].messageDescription
             this.answerWithError = true;
           }else{
-            this.EarlinkCoreData.products.internetPlans = data.response.internetPlansList;
-            this.EarlinkCoreData.securityQuestionsList = data.response.securityQuestionsList;
-            this.EarlinkCoreData.ifMatch = data.eTag;
-            this.EarlinkService.setCartForm(this.EarlinkCoreData);
+            this.earthlinkCoreData.products.internetPlans = data.response.internetPlansList;
+            this.earthlinkCoreData.securityQuestionsList = data.response.securityQuestionsList;
+            this.earthlinkCoreData.ifMatch = data.eTag;
+            this.EarthlinkService.setCartForm(this.earthlinkCoreData);
             this.router.navigate(['products']);
           }
         },
@@ -341,21 +348,21 @@ export class AddressComponent implements OnInit {
   updateInputs(value?: string) {
     let testValues: any
     testValues = this.TEST.find(res => res.title == value)
-    this.EarlinkCoreData.firstName = this.firstName = testValues?.firstName
-    this.EarlinkCoreData.lastName = this.lastName = testValues?.lastName
-    this.EarlinkCoreData.email = this.email = testValues?.email
-    this.EarlinkCoreData.phone = this.phone = testValues?.phone
-    this.addressLine1 = this.EarlinkCoreData.addressLine1 = testValues?.address
+    this.earthlinkCoreData.firstName = this.firstName = testValues?.firstName
+    this.earthlinkCoreData.lastName = this.lastName = testValues?.lastName
+    this.earthlinkCoreData.email = this.email = testValues?.email
+    this.earthlinkCoreData.phone = this.phone = testValues?.phone
+    this.addressLine1 = this.earthlinkCoreData.addressLine1 = testValues?.address
     this.serviceApt = testValues?.apt
-    this.EarlinkCoreData.serviceCity = this.serviceCity = testValues?.city
-    this.EarlinkCoreData.serviceState = this.serviceState = testValues?.state
-    this.EarlinkCoreData.serviceZip = this.serviceZip = testValues?.zip
+    this.earthlinkCoreData.serviceCity = this.serviceCity = testValues?.city
+    this.earthlinkCoreData.serviceState = this.serviceState = testValues?.state
+    this.earthlinkCoreData.serviceZip = this.serviceZip = testValues?.zip
 
     if (value != "") {
-      //this.EarlinkCoreData.fieldAddressRequired = this.REQUIRED;
+      //this.earthlinkCoreData.fieldAddressRequired = this.REQUIRED;
     } else {
       this.REQUIRED = [];
-      //this.EarlinkCoreData.fieldAddressRequired = this.REQUIRED;
+      //this.earthlinkCoreData.fieldAddressRequired = this.REQUIRED;
       this.nextButtonEnabled = false;
     }
   }
@@ -373,7 +380,7 @@ export class AddressComponent implements OnInit {
     if (this.REQUIRED.length !== this.numberRequired) {
       this.nextButtonEnabled = false;
     }
-    //this.EarlinkCoreData.fieldAddressRequired = this.REQUIRED;
+    //this.earthlinkCoreData.fieldAddressRequired = this.REQUIRED;
 
     if (event.name === "email" && event.value != '') {
       this.validateFiledEmail(event);
@@ -458,27 +465,27 @@ export class AddressComponent implements OnInit {
 
   getProducts(){
     let object =  {
-      "agentName": this.EarlinkCoreData.agentId,
-      "addressLine1": this.EarlinkCoreData.addressLine1,
-      "addressLine2": this.EarlinkCoreData.addressLine2,
-      "city": this.EarlinkCoreData.serviceCity,
-      "state": this.EarlinkCoreData.serviceState,
-      "zipCode": this.EarlinkCoreData.serviceZip
+      "agentName": this.earthlinkCoreData.agentId,
+      "addressLine1": this.earthlinkCoreData.addressLine1,
+      "addressLine2": this.earthlinkCoreData.addressLine2,
+      "city": this.earthlinkCoreData.serviceCity,
+      "state": this.earthlinkCoreData.serviceState,
+      "zipCode": this.earthlinkCoreData.serviceZip
     }
     this.loaderOn = true;
     this.answerWithError = false;
 
-    this.EarlinkService.geoAddress(object).subscribe({
+    this.EarthlinkService.geoAddress(object).subscribe({
       next: (data: any) => {
-        this.EarlinkCoreData.caseId = data.ID;
-        this.EarlinkCoreData.ifMatch = data.eTag;
+        this.earthlinkCoreData.caseId = data.ID;
+        this.earthlinkCoreData.ifMatch = data.eTag;
         let addresses = data.response.eligibleAddresses;
         if(addresses !== undefined && addresses !== null && addresses.length ){
 
           let address = addresses[(Math.floor(Math.random() * addresses.length))];
-          this.EarlinkCoreData.controlNumber = address.controlNumber;
-          this.EarlinkCoreData.market = address.market;
-          this.EarlinkCoreData.productType = null;
+          this.earthlinkCoreData.controlNumber = address.controlNumber;
+          this.earthlinkCoreData.market = address.market;
+          this.earthlinkCoreData.productType = null;
         }
         let respAddress = data
         this.analyzeResAddress(respAddress);
@@ -490,7 +497,6 @@ export class AddressComponent implements OnInit {
           this.answerWithError = true;
           this.ErrorMessage = error.error.messages[0].messageDescription;
         }
-
       },
       complete: () => {
 
@@ -500,13 +506,13 @@ export class AddressComponent implements OnInit {
 
   setAddress(address: any){
     this.closeModal();
-    this.EarlinkCoreData.addressLine1 = address.addressLine1;
-    this.EarlinkCoreData.addressLine2 = address.addressLine2;
-    this.EarlinkCoreData.controlNumber = address.controlNumber;
-    this.EarlinkCoreData.serviceCity = address.locality;
-    this.EarlinkCoreData.market = address.market;
-    this.EarlinkCoreData.serviceZip = address.zipCode;
-    this.EarlinkCoreData.serviceState = address.state;
+    this.earthlinkCoreData.addressLine1 = address.addressLine1;
+    this.earthlinkCoreData.addressLine2 = address.addressLine2;
+    this.earthlinkCoreData.controlNumber = address.controlNumber;
+    this.earthlinkCoreData.serviceCity = address.locality;
+    this.earthlinkCoreData.market = address.market;
+    this.earthlinkCoreData.serviceZip = address.zipCode;
+    this.earthlinkCoreData.serviceState = address.state;
     this.getProducts();
   }
 

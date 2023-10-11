@@ -148,12 +148,12 @@
                 <div *ngIf="currentCustomer === 'true'"><b style="color: red;">We are not able to upgrade to add additional Fidium services if they already exist at this address. Please refer the caller to Fidium care.</b></div>
             </div>
             <div>
-                <!-- <app-marketing-email-drip [fidiumCoreData]="fidiumCoreData" (emailDripEvent)="setEmailDrip($event)"></app-marketing-email-drip> -->
+                <!-- <app-marketing-email-drip [earthlinkCoreData]="earthlinkCoreData" (emailDripEvent)="setEmailDrip($event)"></app-marketing-email-drip> -->
             </div>
             <div class="card-button">
                 <button (click)="submitData()" class="button-next-previous button-orange button-shadow" [disabled]="isNextButtonDisabled()" [ngClass]="{'button-disabled': isNextButtonDisabled()}">Next</button>
             </div>
-            <div *ngIf="EarlinkCoreData.isDevMode" class="form">
+            <div *ngIf="earthlinkCoreData.isDevMode" class="form">
                 <div class="inputs1" style="width: 30%">
                     <div class="form-group">
                         <label for="stateSelect">TEST QUALIFY:</label>
@@ -168,5 +168,5 @@
         </div>
     </div>
 </div>
-<!-- <app-loader [loaderOn]="loaderOn" [loaderTitle]="loaderTitle"></app-loader>
-<app-message [display]="answerWithError" [message]="ErrorMessage"></app-message> -->
+<app-loader [loaderOn]="loaderOn" [loaderTitle]="loaderTitle"></app-loader>
+<app-message [display]="answerWithError" [message]="ErrorMessage"></app-message>

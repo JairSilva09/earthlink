@@ -1,5 +1,5 @@
 import { Component, Input, OnInit,Output, EventEmitter } from '@angular/core';
-import { EarlinkService } from '../service/earlink.service';
+import { EarthlinkService } from '../service/earthlink.service';
 import { Router } from '@angular/router';
 import { ORDERDATA } from '../models/data.model';
 
@@ -16,7 +16,7 @@ export class ProductsCardComponent implements OnInit {
   data!: ORDERDATA;
   productDestriptions: Array<string> = [];
 
-  constructor(private earthlinkService: EarlinkService, private router: Router) { }
+  constructor(private earthlinkService: EarthlinkService, private router: Router) { }
 
   ngOnInit(): void {
     this.id = this.product.id;

@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class EarlinkService {
+export class EarthlinkService {
 
   private transactionIsgUrl = 'api/transaction';
   private geoAddressUrl = 'api/fidium/v1/addresses';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { EarlinkService } from '../service/earlink.service';
+import { EarthlinkService } from '../service/earthlink.service';
 import { ORDERDATA,orderData } from '../models/data.model';
 import { InfoBilling, ShowingCart } from '../models/models';
 
@@ -10,7 +10,8 @@ import { InfoBilling, ShowingCart } from '../models/models';
   styleUrls: ['./side-cart.component.scss']
 })
 export class SideCartComponent implements OnInit {
-  EarlinkCoreData: ORDERDATA = orderData;
+  earthlinkCoreData: ORDERDATA
+  
   // showingCart: ShowingCart = {
   //   productInternet: {
   //     PlanName: "",
@@ -33,23 +34,22 @@ export class SideCartComponent implements OnInit {
    //-------error-------------//
    ErrorMessage: string = "";
    answerWithError: boolean = false;
-  constructor(private earlinkService: EarlinkService, private router: Router,) { }
+  constructor(private earthlinkService: EarthlinkService, private router: Router,) { 
+    this.earthlinkCoreData = orderData;
+  }
 
   ngOnInit(): void {
-
-    this.earlinkService.currentCartForm$.subscribe((data:ORDERDATA) => {
-      this.EarlinkCoreData = data;
-      //this.showingCart = this.EarlinkCoreData.showingCart
-      //this.infoBilling = this.EarlinkCoreData.infoBilling
-      this.agentId= this.EarlinkCoreData.agentId
-      this.earlinkService.setTransactionIdHeaders(this.EarlinkCoreData.transactionId);
+    this.earthlinkService.getLocalStorage();
+    this.earthlinkService.currentCartForm$.subscribe((data) => {
+      this.earthlinkCoreData = data;
+      console.log(this.earthlinkCoreData)
+      //this.showingCart = this.earthlinkCoreData.showingCart
+      //this.infoBilling = this.earthlinkCoreData.infoBilling
+      this.agentId= this.earthlinkCoreData.agentId
+      this.earthlinkService.setTransactionIdHeaders(this.earthlinkCoreData.transactionId);
 
       if (data.transactionId == '' && this.transactionIdRequestCounter==0) {
-        this.transactionIdRequestCounter++
-        setTimeout(() => {
-          this.earlinkService.getLocalStorage();
-          this.EarlinkCoreData = data;
-        }, 2000);
+        this.transactionIdRequestCounter++        
       }
     });
 
@@ -60,17 +60,17 @@ export class SideCartComponent implements OnInit {
     if (confirm('Are you sure you want to reset your cart?')) {
       localStorage.clear();
       localStorage.setItem('displayCart', 'false')
-      const agentId = this.EarlinkCoreData.agentId
-      const zip = this.EarlinkCoreData.serviceZip
-      const dnis = this.EarlinkCoreData.dnis
+      const agentId = this.earthlinkCoreData.agentId
+      const zip = this.earthlinkCoreData.serviceZip
+      const dnis = this.earthlinkCoreData.dnis
       const callKey = ''
-      const email = this.EarlinkCoreData.email
-      const phone = this.EarlinkCoreData.phone
-      const firstName = this.EarlinkCoreData.firstName
-      const lastName =  this.EarlinkCoreData.lastName
-      const city = this.EarlinkCoreData.serviceCity
-      const address = this.EarlinkCoreData.addressLine1
-      const state = this.EarlinkCoreData.serviceState
+      const email = this.earthlinkCoreData.email
+      const phone = this.earthlinkCoreData.phone
+      const firstName = this.earthlinkCoreData.firstName
+      const lastName =  this.earthlinkCoreData.lastName
+      const city = this.earthlinkCoreData.serviceCity
+      const address = this.earthlinkCoreData.addressLine1
+      const state = this.earthlinkCoreData.serviceState
       window.location.replace(`address?firstName=${firstName}&lastName=${lastName}&addressLine1=${address}&address2=&city=${city}&state=${state}&zip=${zip}&agentId=${agentId}&&dnis=${dnis}&ani=&email=${email}&phone=${phone}`);
     }
   }
@@ -79,42 +79,42 @@ export class SideCartComponent implements OnInit {
 
 
     if (template == 'address 1') {
-      this.EarlinkCoreData.firstName = 'Cesar'
-      this.EarlinkCoreData.lastName = 'Vega'
-      this.EarlinkCoreData.email = 'cvega@infsalesgroup.com'
-      this.EarlinkCoreData.phone = '3053265854'
-      this.EarlinkCoreData.serviceCity = 'Augusta'
-      this.EarlinkCoreData.serviceState = 'GA'
-      this.EarlinkCoreData.serviceZip = '30904'
+      this.earthlinkCoreData.firstName = 'Cesar'
+      this.earthlinkCoreData.lastName = 'Vega'
+      this.earthlinkCoreData.email = 'cvega@infsalesgroup.com'
+      this.earthlinkCoreData.phone = '3053265854'
+      this.earthlinkCoreData.serviceCity = 'Augusta'
+      this.earthlinkCoreData.serviceState = 'GA'
+      this.earthlinkCoreData.serviceZip = '30904'
 
 
     } else if (template == 'address 2') {
-      this.EarlinkCoreData.firstName = 'Yanay'
-      this.EarlinkCoreData.lastName = 'Viera'
-      this.EarlinkCoreData.email = 'Yanay@infsalesgroup.com'
-      this.EarlinkCoreData.phone = '7864541245'
-      this.EarlinkCoreData.serviceCity = 'Montgomery'
-      this.EarlinkCoreData.serviceState = 'AL'
-      this.EarlinkCoreData.serviceZip = '35107'
+      this.earthlinkCoreData.firstName = 'Yanay'
+      this.earthlinkCoreData.lastName = 'Viera'
+      this.earthlinkCoreData.email = 'Yanay@infsalesgroup.com'
+      this.earthlinkCoreData.phone = '7864541245'
+      this.earthlinkCoreData.serviceCity = 'Montgomery'
+      this.earthlinkCoreData.serviceState = 'AL'
+      this.earthlinkCoreData.serviceZip = '35107'
 
     } else if (template == 'address 3') {
-      this.EarlinkCoreData.firstName = 'Milena'
-      this.EarlinkCoreData.lastName = 'Fonseca'
-      this.EarlinkCoreData.email = 'Fonseca@infsalesgroup.com'
-      this.EarlinkCoreData.phone = '30548745478'
-      this.EarlinkCoreData.serviceCity = 'FOWLERVILLE'
-      this.EarlinkCoreData.serviceState = 'MI'
-      this.EarlinkCoreData.serviceZip = '48336'
+      this.earthlinkCoreData.firstName = 'Milena'
+      this.earthlinkCoreData.lastName = 'Fonseca'
+      this.earthlinkCoreData.email = 'Fonseca@infsalesgroup.com'
+      this.earthlinkCoreData.phone = '30548745478'
+      this.earthlinkCoreData.serviceCity = 'FOWLERVILLE'
+      this.earthlinkCoreData.serviceState = 'MI'
+      this.earthlinkCoreData.serviceZip = '48336'
 
     } else if (template == 'address 4') {
-      this.EarlinkCoreData.firstName = 'Jessell'
-      this.EarlinkCoreData.lastName = 'Bassett'
-      this.EarlinkCoreData.email = 'Bassett@infsalesgroup.com'
-      this.EarlinkCoreData.phone = '5614567895'
+      this.earthlinkCoreData.firstName = 'Jessell'
+      this.earthlinkCoreData.lastName = 'Bassett'
+      this.earthlinkCoreData.email = 'Bassett@infsalesgroup.com'
+      this.earthlinkCoreData.phone = '5614567895'
 
-      this.EarlinkCoreData.serviceCity = 'Miami'
-      this.EarlinkCoreData.serviceState = 'FL'
-      this.EarlinkCoreData.serviceZip = '33131'
+      this.earthlinkCoreData.serviceCity = 'Miami'
+      this.earthlinkCoreData.serviceState = 'FL'
+      this.earthlinkCoreData.serviceZip = '33131'
 
     }
 

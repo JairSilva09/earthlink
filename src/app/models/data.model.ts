@@ -37,14 +37,7 @@ export interface ORDERDATA {
     lastName: string;
     market: string;
     phone: string;
-    infoBilling: {
-      addressLine1: string,
-      addressLine2: string,
-      attentionInCareOf: string,
-      city: string,
-      state: string,
-      zipCode:  string,
-    };
+    infoBilling: InfoBilling;
     installationContact: {
       firstName: string,
       lastName: string,
@@ -78,7 +71,7 @@ export interface ORDERDATA {
     securityQuestionsList: SecurityQuestionsList[];
     showingCart: {
       productInternet: {
-        PlanName: string;
+        planName: string;
         recurringAmount: string;
       };
       productVoice: ProductVoice;
@@ -105,7 +98,11 @@ export const orderData: ORDERDATA = {
     },
     assignNewNumber: "",
     caseId: "",
-    carriersList: [],
+    carriersList: [
+      {
+        name: "",
+      },
+    ],
     infoContact: {
       firstName: "",
       lastName: "",
@@ -132,7 +129,7 @@ export const orderData: ORDERDATA = {
       city: "",
       state: "",
       zipCode:  "",
-     },
+    },
     firstName: "",
     isgGiftCard: "",
     isgGiftCardResponse: false,
@@ -167,10 +164,13 @@ export const orderData: ORDERDATA = {
     securityQuestionsList: [],
     showingCart: {
       productInternet:{
-        PlanName: "",
+        planName: "",
         recurringAmount: "",
       },
-      productVoice:{}    
+      productVoice:{
+        planName: "",
+      },
+         
     }
 };
   
