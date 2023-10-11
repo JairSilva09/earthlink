@@ -4,10 +4,10 @@ import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { ORDERDATA,orderData } from '../models/data.model';
+import { CUSTOMER_MULTI_ADDRESS } from '../mock-data';
 
 import { validateEmpty, validatePhone, validateEmail } from '../service/validations';
 //import { LoginService } from '../service/login.service';
-//import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 //import { DatePipe } from '@angular/common';
 
 @Component({
@@ -278,7 +278,9 @@ export class AddressComponent implements OnInit {
     this.loaderTitle = 'Getting Products'
     setTimeout(() => {      
     this.loaderOn = false;
-    this.router.navigate(['products']);
+    //this.router.navigate(['products']);
+    let respAddress = CUSTOMER_MULTI_ADDRESS;
+        this.analyzeResAddress(respAddress);
     }, 3000);
     ///// END HARD CODE /////////
     // this.loaderTitle = 'Getting Products'
@@ -305,6 +307,7 @@ export class AddressComponent implements OnInit {
   analyzeResAddress(resp: any){
 
     if(resp.response.eligibleAddresses.length > 1){
+      console.log(resp.response.eligibleAddresses)
       //MULTI ADDRESSES
       this.eligibleAddresses = resp.response.eligibleAddresses;
       this.displayModal = "block";

@@ -35,6 +35,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { DisclosuresComponent } from './disclosures/disclosures.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { DotColorComponent } from './dotcolor/dotcolor.component';
+import { MarketingEmailDripComponent } from './marketing-email-drip/marketing-email-drip.component';
+import { ModalAddressComponent } from './modal-address/modal-address.component';
+import { MatTableModule } from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -55,7 +59,9 @@ import { DotColorComponent } from './dotcolor/dotcolor.component';
     RecapComponent,
     DisclosuresComponent,
     ConfirmationComponent,
-    DotColorComponent
+    DotColorComponent,
+    MarketingEmailDripComponent,
+    ModalAddressComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +78,8 @@ import { DotColorComponent } from './dotcolor/dotcolor.component';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule
   ],
   providers: [DatePipe, TimePipe],
   bootstrap: [AppComponent]
