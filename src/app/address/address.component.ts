@@ -274,17 +274,18 @@ export class AddressComponent implements OnInit {
   }
   submitData() {
     //HARD CODE
-    this.loaderOn = true;
-    this.loaderTitle = 'Getting Products'
-    setTimeout(() => {      
-    this.loaderOn = false;
-    //this.router.navigate(['products']);
-    let respAddress = CUSTOMER_MULTI_ADDRESS;
-        this.analyzeResAddress(respAddress);
-    }, 3000);
-    ///// END HARD CODE /////////
-    // this.loaderTitle = 'Getting Products'
     // this.loaderOn = true;
+    // this.loaderTitle = 'Getting Products'
+    // setTimeout(() => {      
+    // this.loaderOn = false;
+    // this.router.navigate(['products']);
+    // let respAddress = CUSTOMER_MULTI_ADDRESS;
+    //     this.analyzeResAddress(respAddress);
+    // }, 3000);
+    ///// END HARD CODE /////////
+    this.loaderTitle = 'Getting Products'
+    this.loaderOn = true;
+    this.router.navigate(['products']);
     this.earthlinkCoreData.firstName = this.firstName;
     this.earthlinkCoreData.lastName = this.lastName;
     this.earthlinkCoreData.email = this.email;

@@ -32,11 +32,12 @@
 }
 
 .modal-body {
-    width: 112.4%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: -34px;
+  width: 106.7%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: -20px;
+
 }
 
 .select-address {
@@ -49,11 +50,11 @@
 }
 
 .hovered {
-    background-color: $color-green2 !important;
+    background-color:#ffb96f!important;
 }
 
 .selected {
-    background-color: #93d50057!important;
+    background-color: #4fc2ef3c!important;
 }
 
 .close-button {
@@ -64,9 +65,11 @@
 }
 
 .modal-button {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 20px;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 20px;
+  margin-top: 10px;
+
 }
 
 .table-content {
